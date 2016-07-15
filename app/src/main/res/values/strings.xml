@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BleExample</string>
+    <string name="get_gps">需要打开定位权限</string>
+</resources>

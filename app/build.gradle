@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+    defaultConfig {
+        applicationId "com.example"
+        minSdkVersion 18
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        buildConfigField("boolean","isDebug","true")
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        manifestPlaceholders=[
+                width_size:720,
+                height_size:1280,
+                UMENG_APPKEY:"56a9c62ce0f55aebb300279b"
+        ]
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi' , 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':blelibrary')
+    compile 'com.zhy:autolayout:1.4.3'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'io.reactivex:rxandroid:1.0.1'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+afterEvaluate {
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--set-max-idx-number=48000'
+    }
+}
+repositories {
+    mavenCentral()
+}

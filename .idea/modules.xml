@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bleTool.iml" filepath="$PROJECT_DIR$/bleTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blelibrary/blelibrary.iml" filepath="$PROJECT_DIR$/blelibrary/blelibrary.iml" />
     </modules>
   </component>
 </project>
